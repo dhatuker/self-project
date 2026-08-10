@@ -7,16 +7,16 @@
   <style>
     :root {
       --bg: #ffffff;
-      --fg: #1a1a1a;
+      --fg: #000000;
+      --fg-light: #333333;
       --muted: #666666;
       --border: #e0e0e0;
-      --accent: #000000;
-      --radius: 8px;
-      --transition: 0.2s ease;
-      --max-width: 900px;
-      --spacing: 3rem;
-      --animation-duration: 0.8s;
-      --sidebar-width: 260px;
+      --transition: 0.3s ease;
+      --max-width: 1000px;
+      --spacing: 4rem;
+      --animation-duration: 0.6s;
+      --font-sans: -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, 'Helvetica Neue', Arial, sans-serif;
+      --font-serif: 'Georgia', 'Times New Roman', serif;
     }
     
     * {
@@ -25,15 +25,16 @@
       box-sizing: border-box;
     }
     
+    html {
+      scroll-behavior: smooth;
+    }
+    
     body {
-      font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, 'Helvetica Neue', Arial, sans-serif;
-      line-height: 1.7;
+      font-family: var(--font-sans);
+      line-height: 1.8;
       color: var(--fg);
       background-color: var(--bg);
-      scroll-behavior: smooth;
       overflow-x: hidden;
-      display: flex;
-      min-height: 100vh;
     }
     
     a {
@@ -43,73 +44,57 @@
     }
     
     a:hover {
-      color: var(--accent);
+      opacity: 0.8;
     }
     
-    /* Sidebar */
-    .sidebar {
-      width: var(--sidebar-width);
-      background: var(--bg);
-      border-right: 1px solid var(--border);
-      padding: var(--spacing) 0;
-      position: fixed;
-      top: 0;
-      left: 0;
-      height: 100vh;
-      overflow-y: auto;
-    }
-    
-    .sidebar .logo {
+    /* Header */
+    header {
       text-align: center;
-      margin-bottom: 2.5rem;
+      padding: var(--spacing) 0;
+      border-bottom: 1px solid var(--border);
+      position: relative;
     }
     
-    .sidebar .logo a {
-      font-size: 2rem;
+    .logo {
+      font-size: 2.5rem;
       font-weight: 300;
       letter-spacing: -0.5px;
+      margin-bottom: 1.5rem;
     }
     
-    .sidebar nav {
-      margin-top: 0;
+    nav {
+      display: flex;
+      justify-content: center;
+      gap: 3rem;
+      flex-wrap: wrap;
     }
     
-    .sidebar nav ul {
-      flex-direction: column;
-      gap: 1.5rem;
-      align-items: flex-start;
-      padding: 0 1.5rem;
-    }
-    
-    .sidebar nav a {
+    nav a {
       font-weight: 400;
       font-size: 1rem;
+      text-transform: uppercase;
+      letter-spacing: 1px;
       opacity: 0.7;
-      white-space: nowrap;
     }
     
-    .sidebar nav a:hover {
+    nav a:hover {
       opacity: 1;
     }
     
-    /* Main content */
-    .main-content {
-      flex: 1;
-      margin-left: var(--sidebar-width);
+    /* Main Content */
+    .container {
+      max-width: var(--max-width);
+      margin: 0 auto;
       padding: 0 var(--spacing);
     }
     
-    /* Sections - Initial state for animation */
+    /* Sections */
     section {
       opacity: 0;
-      transform: translateY(30px);
+      transform: translateY(40px);
       transition: opacity var(--animation-duration) ease, transform var(--animation-duration) ease;
       will-change: opacity, transform;
-      margin-bottom: var(--spacing);
-    }
-    
-    section:last-child {
-      margin-bottom: 0;
+      padding: var(--spacing) 0;
     }
     
     section.visible {
@@ -117,185 +102,242 @@
       transform: translateY(0);
     }
     
-    /* Summary */
+    /* Section Headers */
+    .section-header {
+      text-align: center;
+      margin-bottom: var(--spacing);
+    }
+    
+    .section-header h2 {
+      font-size: 2.5rem;
+      font-weight: 300;
+      margin-bottom: 0.5rem;
+      letter-spacing: -0.5px;
+    }
+    
+    .section-header p {
+      color: var(--muted);
+      font-size: 1.1rem;
+      max-width: 600px;
+      margin: 0 auto;
+    }
+    
+    /* Summary Section */
     #summary {
       text-align: center;
+      padding: calc(var(--spacing) * 2) 0;
     }
     
     .profile {
-      margin-bottom: 2rem;
+      margin-bottom: 3rem;
     }
     
     .profile-initial {
-      width: 120px;
-      height: 120px;
+      width: 140px;
+      height: 140px;
       background: var(--fg);
       color: var(--bg);
       border-radius: 50%;
       display: inline-flex;
       align-items: center;
       justify-content: center;
-      font-size: 3rem;
+      font-size: 4rem;
       font-weight: 300;
-      margin-bottom: 1.5rem;
+      margin-bottom: 2rem;
     }
     
     .summary-text {
-      max-width: 600px;
+      max-width: 700px;
       margin: 0 auto;
-      color: var(--muted);
-      font-size: 1.1rem;
+      color: var(--fg-light);
+      font-size: 1.2rem;
       line-height: 1.8;
     }
     
     .skills {
-      margin-top: 2rem;
+      margin-top: 3rem;
       display: flex;
       flex-wrap: wrap;
-      gap: 0.75rem;
+      gap: 1rem;
       justify-content: center;
     }
     
     .skill {
       background: var(--border);
       color: var(--fg);
-      padding: 0.5rem 1rem;
-      border-radius: var(--radius);
+      padding: 0.75rem 1.5rem;
+      border-radius: 4px;
       font-size: 0.9rem;
       font-weight: 400;
+      text-transform: uppercase;
+      letter-spacing: 0.5px;
     }
     
-    /* Experience */
+    /* Experience Section */
+    #experience {
+      background: #fafafa;
+    }
+    
     .timeline {
-      max-width: 700px;
+      max-width: 800px;
       margin: 0 auto;
     }
     
     .experience-item {
-      margin-bottom: 2.5rem;
-      padding-left: 2rem;
-      border-left: 2px solid var(--border);
+      margin-bottom: 3.5rem;
+      padding-left: 3rem;
+      border-left: 3px solid var(--border);
+      position: relative;
     }
     
     .experience-item:last-child {
       margin-bottom: 0;
     }
     
+    .experience-item::before {
+      content: '';
+      position: absolute;
+      top: 0;
+      left: -1.5px;
+      width: 12px;
+      height: 12px;
+      background: var(--fg);
+      border-radius: 50%;
+    }
+    
     .job-header {
       display: flex;
       justify-content: space-between;
-      margin-bottom: 0.75rem;
+      flex-wrap: wrap;
+      gap: 1rem;
+      margin-bottom: 1rem;
     }
     
     .job-title {
-      font-size: 1.25rem;
+      font-size: 1.5rem;
       font-weight: 500;
     }
     
     .job-period {
       color: var(--muted);
-      font-size: 0.95rem;
+      font-size: 1rem;
     }
     
     .company {
       color: var(--muted);
-      font-size: 0.95rem;
-      margin-bottom: 1rem;
+      font-size: 1rem;
+      margin-bottom: 1.5rem;
       display: block;
+      font-style: italic;
     }
     
     .job-description {
-      color: var(--muted);
+      color: var(--fg-light);
       line-height: 1.8;
+      max-width: 600px;
     }
     
-    /* Projects */
+    /* Projects Section */
+    #projects {
+      text-align: center;
+    }
+    
     .projects-grid {
       display: grid;
-      grid-template-columns: repeat(auto-fit, minmax(280px, 1fr));
-      gap: 2rem;
+      grid-template-columns: repeat(auto-fit, minmax(320px, 1fr));
+      gap: 3rem;
     }
     
     .project-card {
+      background: #fafafa;
       border: 1px solid var(--border);
-      border-radius: var(--radius);
-      padding: 2rem;
+      border-radius: 4px;
+      overflow: hidden;
       transition: var(--transition);
     }
     
     .project-card:hover {
-      border-color: var(--accent);
-      transform: translateY(-2px);
+      transform: translateY(-4px);
+      box-shadow: 0 8px 24px rgba(0,0,0,0.08);
     }
     
-    .project-icon {
-      width: 48px;
-      height: 48px;
-      margin-bottom: 1.5rem;
+    .project-image {
+      height: 240px;
+      background: #f0f0f0;
       display: flex;
       align-items: center;
       justify-content: center;
-      font-size: 1.5rem;
-      color: var(--fg);
+      color: var(--muted);
+      font-style: italic;
+    }
+    
+    .project-content {
+      padding: 2rem;
     }
     
     .project-title {
-      font-size: 1.25rem;
+      font-size: 1.4rem;
       font-weight: 500;
-      margin-bottom: 0.75rem;
+      margin-bottom: 1rem;
     }
     
     .project-desc {
-      color: var(--muted);
+      color: var(--fg-light);
       margin-bottom: 1.5rem;
-      font-size: 0.95rem;
       line-height: 1.7;
     }
     
-    .tech-stack {
-      display: flex;
-      flex-wrap: wrap;
-      gap: 0.5rem;
-    }
-    
-    .tech {
-      background: var(--border);
+    .project-link {
+      display: inline-block;
       color: var(--fg);
-      padding: 0.25rem 0.75rem;
-      border-radius: 12px;
-      font-size: 0.85rem;
+      font-weight: 500;
+      border-bottom: 1px solid currentColor;
+      padding-bottom: 2px;
     }
     
-    /* Contact */
+    .project-link:hover {
+      opacity: 0.8;
+    }
+    
+    /* Contact Section */
+    #contact {
+      text-align: center;
+      padding: calc(var(--spacing) * 2) 0;
+      background: #fafafa;
+    }
+    
     .contact-info {
       max-width: 500px;
       margin: 0 auto;
-      text-align: center;
     }
     
     .contact-item {
       display: flex;
       flex-direction: column;
       align-items: center;
-      gap: 0.5rem;
-      margin-bottom: 2rem;
+      gap: 0.75rem;
+      margin-bottom: 2.5rem;
     }
     
     .contact-label {
       color: var(--muted);
       font-size: 0.9rem;
       text-transform: uppercase;
-      letter-spacing: 0.5px;
+      letter-spacing: 1px;
     }
     
     .contact-value {
-      font-size: 1.1rem;
+      font-size: 1.2rem;
       color: var(--fg);
       word-break: break-all;
     }
     
     .contact-value a {
       color: var(--fg);
+    }
+    
+    .contact-value a:hover {
+      opacity: 0.8;
     }
     
     /* Footer */
@@ -310,281 +352,306 @@
     /* Responsive */
     @media (max-width: 768px) {
       :root {
-        --sidebar-width: 70px;
-        --spacing: 2rem;
+        --spacing: 2.5rem;
       }
       
-      .sidebar {
-        width: var(--sidebar-width);
-        padding: 1rem 0;
+      header {
+        padding: var(--spacing) 0;
       }
       
-      .sidebar .logo {
-        margin-bottom: 1.5rem;
+      nav {
+        gap: 2rem;
       }
       
-      .sidebar .logo a {
-        font-size: 1.5rem;
+      .logo {
+        font-size: 2rem;
       }
       
-      .sidebar nav ul {
-        gap: 1rem;
-        padding: 0;
+      .section-header h2 {
+        font-size: 2rem;
       }
       
-      .sidebar nav a {
-        font-size: 0.9rem;
-        padding: 0.5rem;
-        border-radius: var(--radius);
-        background: var(--border);
-        width: 100%;
-        text-align: center;
+      .profile-initial {
+        width: 120px;
+        height: 120px;
+        font-size: 3.5rem;
       }
       
-      .sidebar nav a:hover {
-        background: var(--fg);
-        color: var(--bg);
+      .summary-text {
+        font-size: 1.1rem;
       }
       
-      .main-content {
-        margin-left: var(--sidebar-width);
-        padding: 0 var(--spacing);
+      .skills {
+        gap: 0.75rem;
+      }
+      
+      .skill {
+        padding: 0.5rem 1rem;
+        font-size: 0.85rem;
+      }
+      
+      .experience-item {
+        padding-left: 2rem;
+      }
+      
+      .experience-item::before {
+        width: 8px;
+        height: 8px;
+        left: -1px;
+      }
+      
+      .projects-grid {
+        grid-template-columns: 1fr;
+        gap: 2rem;
+      }
+      
+      .project-image {
+        height: 200px;
       }
     }
     
     @media (max-width: 480px) {
       :root {
-        --sidebar-width: 60px;
-        --spacing: 1.5rem;
+        --spacing: 2rem;
       }
       
-      .sidebar .logo a {
-        font-size: 1.2rem;
+      nav {
+        flex-direction: column;
+        gap: 1.5rem;
       }
       
-      .sidebar nav a {
-        font-size: 0.8rem;
-        padding: 0.4rem;
+      .logo {
+        font-size: 1.8rem;
+      }
+      
+      .section-header h2 {
+        font-size: 1.8rem;
+      }
+      
+      .profile-initial {
+        width: 100px;
+        height: 100px;
+        font-size: 3rem;
+      }
+      
+      .job-header {
+        flex-direction: column;
+        align-items: flex-start;
+        gap: 0.5rem;
+      }
+      
+      .contact-value {
+        font-size: 1.1rem;
       }
     }
   </style>
 </head>
 <body>
-  <!-- Sidebar -->
-  <aside class="sidebar">
-    <div class="logo">
-      <a href="#summary">Kiki</a>
+  <header>
+    <div class="container">
+      <div class="logo">Kiki</div>
+      <nav>
+        <a href="#summary">Summary</a>
+        <a href="#experience">Experience</a>
+        <a href="#projects">Projects</a>
+        <a href="#contact">Contact</a>
+      </nav>
     </div>
-    <nav>
-      <ul>
-        <li><a href="#summary">Summary</a></li>
-        <li><a href="#experience">Experience</a></li>
-        <li><a href="#projects">Projects</a></li>
-        <li><a href="#contact">Contact</a></li>
-      </ul>
-    </nav>
-  </aside>
+  </header>
 
-  <!-- Main Content -->
-  <div class="main-content">
-    <section id="summary">
-      <div class="container">
-        <div class="profile">
-          <div class="profile-initial">K</div>
-        </div>
-        <h2 class="section-title">Summary</h2>
+  <section id="summary">
+    <div class="container">
+      <div class="profile">
+        <div class="profile-initial">K</div>
+      </div>
+      <div class="section-header">
+        <h2>Summary</h2>
         <p class="summary-text">
           I'm a full-stack developer focused on building clean, efficient web applications. 
           My work centers around creating thoughtful user experiences through well-crafted code.
         </p>
-        <div class="skills">
-          <span class="skill">JavaScript</span>
-          <span class="skill">Node.js</span>
-          <span class="skill">React</span>
-          <span class="skill">Express.js</span>
-          <span class="skill">MongoDB</span>
-          <span class="skill">HTML/CSS</span>
-          <span class="skill">Python</span>
-          <span class="skill">Git</span>
+      </div>
+      <div class="skills">
+        <span class="skill">JavaScript</span>
+        <span class="skill">Node.js</span>
+        <span class="skill">React</span>
+        <span class="skill">Express.js</span>
+        <span class="skill">MongoDB</span>
+        <span class="skill">HTML/CSS</span>
+        <span class="skill">Python</span>
+        <span class="skill">Git</span>
+      </div>
+    </div>
+  </section>
+
+  <section id="experience">
+    <div class="container">
+      <div class="section-header">
+        <h2>Experience</h2>
+        <p>Professional journey in full-stack development</p>
+      </div>
+      <div class="timeline">
+        <div class="experience-item">
+          <div class="job-header">
+            <div class="job-title">Senior Full-Stack Developer</div>
+            <div class="job-period">2021 - Present</div>
+          </div>
+          <div class="company">TechCorp Solutions</div>
+          <p class="job-description">
+            Leading development of scalable web applications using modern JavaScript 
+            architectures. Mentoring team members and driving technical excellence 
+            across multiple product lines.
+          </p>
+        </div>
+        
+        <div class="experience-item">
+          <div class="job-header">
+            <div class="job-title">Full-Stack Developer</div>
+            <div class="job-period">2019 - 2020</div>
+          </div>
+          <div class="company">InnovateTech Studio</div>
+          <p class="job-description">
+            Built responsive web applications and RESTful APIs for clients across 
+            various industries. Focused on performance optimization and clean code 
+            practices.
+          </p>
+        </div>
+        
+        <div class="experience-item">
+          <div class="job-header">
+            <div class="job-title">Junior Developer</div>
+            <div class="job-period">2018 - 2019</div>
+          </div>
+          <div class="company">StartUp Ventures</div>
+          <p class="job-description">
+            Contributed to frontend development and learned full-stack principles 
+            through hands-on project work and code reviews.
+          </p>
         </div>
       </div>
-    </section>
+    </div>
+  </section>
 
-    <section id="experience">
-      <div class="container">
-        <h2 class="section-title">Experience</h2>
-        <div class="timeline">
-          <div class="experience-item">
-            <div class="job-header">
-              <div class="job-title">Senior Full-Stack Developer</div>
-              <div class="job-period">2021 - Present</div>
-            </div>
-            <div class="company">TechCorp Solutions</div>
-            <p class="job-description">
-              Leading development of scalable web applications using modern JavaScript 
-              architectures. Mentoring team members and driving technical excellence 
-              across multiple product lines.
-            </p>
-          </div>
-          
-          <div class="experience-item">
-            <div class="job-header">
-              <div class="job-title">Full-Stack Developer</div>
-              <div class="job-period">2019 - 2020</div>
-            </div>
-            <div class="company">InnovateTech Studio</div>
-            <p class="job-description">
-              Built responsive web applications and RESTful APIs for clients across 
-              various industries. Focused on performance optimization and clean code 
-              practices.
-            </p>
-          </div>
-          
-          <div class="experience-item">
-            <div class="job-header">
-              <div class="job-title">Junior Developer</div>
-              <div class="job-period">2018 - 2019</div>
-            </div>
-            <div class="company">StartUp Ventures</div>
-            <p class="job-description">
-              Contributed to frontend development and learned full-stack principles 
-              through hands-on project work and code reviews.
-            </p>
-          </div>
-        </div>
+  <section id="projects">
+    <div class="container">
+      <div class="section-header">
+        <h2>Projects</h2>
+        <p>Selected works showcasing full-stack capabilities</p>
       </div>
-    </section>
-
-    <section id="projects">
-      <div class="container">
-        <h2 class="section-title">Projects</h2>
-        <div class="projects-grid">
-          <div class="project-card">
-            <div class="project-icon">
-              <i class="fas fa-server"></i>
-            </div>
+      <div class="projects-grid">
+        <div class="project-card">
+          <div class="project-image">
+            E-Commerce Platform
+          </div>
+          <div class="project-content">
             <h3 class="project-title">E-Commerce Platform</h3>
             <p class="project-desc">
               A complete online marketplace featuring user authentication, 
               product catalog, shopping cart, and secure payment processing.
             </p>
-            <div class="tech-stack">
-              <span class="tech">React</span>
-              <span class="tech">Node.js</span>
-              <span class="tech">Express</span>
-              <span class="tech">MongoDB</span>
-              <span class="tech">Stripe API</span>
-            </div>
+            <a href="#" class="project-link">View Project →</a>
           </div>
-          
-          <div class="project-card">
-            <div class="project-icon">
-              <i class="fas fa-chart-line"></i>
-            </div>
+        </div>
+        
+        <div class="project-card">
+          <div class="project-image">
+            Analytics Dashboard
+          </div>
+          <div class="project-content">
             <h3 class="project-title">Analytics Dashboard</h3>
             <p class="project-desc">
               Real-time data visualization tool for business intelligence with 
               interactive charts, customizable reports, and role-based access.
             </p>
-            <div class="tech-stack">
-              <span class="tech">React</span>
-              <span class="tech">D3.js</span>
-              <span class="tech">Socket.io</span>
-              <span class="tech">Python</span>
-              <span class="tech">PostgreSQL</span>
-            </div>
+            <a href="#" class="project-link">View Project →</a>
           </div>
-          
-          <div class="project-card">
-            <div class="project-icon">
-              <i class="fas fa-mobile-alt"></i>
-            </div>
+        </div>
+        
+        <div class="project-card">
+          <div class="project-image">
+            Task Management App
+          </div>
+          <div class="project-content">
             <h3 class="project-title">Task Management App</h3>
             <p class="project-desc">
               Cross-platform task management solution with drag-and-drop 
               interfaces, real-time collaboration, and mobile offline support.
             </p>
-            <div class="tech-stack">
-              <span class="tech">Vue.js</span>
-              <span class="tech">Node.js</span>
-              <span class="tech">Express</span>
-              <span class="tech">Firebase</span>
-              <span class="tech">PWA</span>
-            </div>
+            <a href="#" class="project-link">View Project →</a>
           </div>
-          
-          <div class="project-card">
-            <div class="project-icon">
-              <i class="fas fa-cube"></i>
-            </div>
+        </div>
+        
+        <div class="project-card">
+          <div class="project-image">
+            Portfolio CMS
+          </div>
+          <div class="project-content">
             <h3 class="project-title">Portfolio CMS</h3>
             <p class="project-desc">
               Headless content management system specifically designed for 
               showcasing creative work with built-in SEO and analytics.
             </p>
-            <div class="tech-stack">
-              <span class="tech">Next.js</span>
-              <span class="tech">Express.js</span>
-              <span class="tech">MongoDB</span>
-              <span class="tech">Markdown</span>
-            </div>
+            <a href="#" class="project-link">View Project →</a>
           </div>
         </div>
       </div>
-    </section>
+    </div>
+  </section>
 
-    <section id="contact">
-      <div class="container">
-        <h2 class="section-title">Contact</h2>
-        <div class="contact-info">
-          <div class="contact-item">
-            <div class="contact-label">Email</div>
-            <div class="contact-value">
-              <a href="mailto:kiki@example.com">kiki@example.com</a>
-            </div>
+  <section id="contact">
+    <div class="container">
+      <div class="section-header">
+        <h2>Contact</h2>
+        <p>Let's create something great together</p>
+      </div>
+      <div class="contact-info">
+        <div class="contact-item">
+          <div class="contact-label">Email</div>
+          <div class="contact-value">
+            <a href="mailto:kiki@example.com">kiki@example.com</a>
           </div>
-          
-          <div class="contact-item">
-            <div class="contact-label">Phone</div>
-            <div class="contact-value">+1 (555) 123-4567</div>
+        </div>
+        
+        <div class="contact-item">
+          <div class="contact-label">Phone</div>
+          <div class="contact-value">+1 (555) 123-4567</div>
+        </div>
+        
+        <div class="contact-item">
+          <div class="contact-label">Location</div>
+          <div class="contact-value">Remote / Global</div>
+        </div>
+        
+        <div class="contact-item">
+          <div class="contact-label">LinkedIn</div>
+          <div class="contact-value">
+            <a href="https://linkedin.com/in/kikidev" target="_blank">
+              linkedin.com/in/kikidev
+            </a>
           </div>
-          
-          <div class="contact-item">
-            <div class="contact-label">Location</div>
-            <div class="contact-value">Remote / Global</div>
-          </div>
-          
-          <div class="contact-item">
-            <div class="contact-label">LinkedIn</div>
-            <div class="contact-value">
-              <a href="https://linkedin.com/in/kikidev" target="_blank">
-                linkedin.com/in/kikidev
-              </a>
-            </div>
-          </div>
-          
-          <div class="contact-item">
-            <div class="contact-label">GitHub</div>
-            <div class="contact-value">
-              <a href="https://github.com/kikidev" target="_blank">
-                github.com/kikidev
-              </a>
-            </div>
+        </div>
+        
+        <div class="contact-item">
+          <div class="contact-label">GitHub</div>
+          <div class="contact-value">
+            <a href="https://github.com/kikidev" target="_blank">
+              github.com/kikidev
+            </a>
           </div>
         </div>
       </div>
-    </section>
+    </div>
+  </section>
 
-    <footer>
-      <div class="container">
-        © 2024 Kiki. All rights reserved.
-      </div>
-    </footer>
-  </div>
+  <footer>
+    <div class="container">
+      © 2024 Kiki. All rights reserved.
+    </div>
+  </footer>
 
   <script>
     // Smooth scrolling for navigation links
-    document.querySelectorAll('.sidebar nav a').forEach(link => {
+    document.querySelectorAll('nav a').forEach(link => {
       link.addEventListener('click', function(e) {
         e.preventDefault();
         const targetId = this.getAttribute('href').slice(1);
@@ -596,13 +663,13 @@
 
     // Active navigation indicator
     const sections = document.querySelectorAll('section');
-    const navLinks = document.querySelectorAll('.sidebar nav a');
+    const navLinks = document.querySelectorAll('nav a');
 
     const observer = new IntersectionObserver((entries) => {
       entries.forEach(entry => {
         if (entry.isIntersecting) {
           navLinks.forEach(link => link.classList.remove('active'));
-          document.querySelector(`.sidebar nav a[href="#${entry.target.id}"]`).classList.add('active');
+          document.querySelector(`nav a[href="#${entry.target.id}"]`).classList.add('active');
         }
       });
     }, {
