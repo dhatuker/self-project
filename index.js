@@ -7,14 +7,20 @@ const PORT = process.env.PORT || 3000;
 // Middleware
 app.use(express.json());
 app.use(express.urlencoded({ extended: true }));
+
+// Serve static files
 app.use(express.static(path.join(__dirname, 'public')));
 
 // Routes
 app.get('/', (req, res) => {
-  res.json({
-    message: 'Welcome to Self-Project!',
-    status: 'running',
-    timestamp: new Date().toISOString()
+  res.sendFile(path.join(__dirname, 'public', 'index.html'));
+});
+
+app.get('/api', (req, res) => {
+  res.json({ 
+    message: 'Portfolio API', 
+    version: '1.0.0',
+    author: 'Kiki'
   });
 });
 
@@ -22,13 +28,9 @@ app.get('/health', (req, res) => {
   res.json({ status: 'healthy' });
 });
 
-app.get('/api', (req, res) => {
-  res.json({ message: 'API endpoint working', version: '1.0.0' });
-});
-
 // 404 handler
 app.use((req, res) => {
-  res.status(404).json({ error: 'Route not found' });
+  res.status(404).json({ error: 'Page not found' });
 });
 
 // Error handler
