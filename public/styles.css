@@ -359,6 +359,8 @@ nav {
   margin-top: 10px;
   max-width: 620px;
 }
+/* Tech-stack chips under each project description */
+.project-stack { margin-top: 16px; }
 
 /* Experience */
 .exp-list { display: flex; flex-direction: column; }

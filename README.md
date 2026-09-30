@@ -37,7 +37,7 @@ self-project/
 1. **Hero** - Name, role and call-to-action buttons
 2. **About** - Personal introduction
 3. **Skills** - Grouped into Frontend, Backend and Tools cards
-4. **Projects** - Three featured project cards with a "View more projects" link to the Projects page
+4. **Projects** - Three featured project cards with tech-stack chips and a "View more projects" link to the Projects page
 5. **Experience** - Timeline rows with period, role and company
 6. **Contact** - Email, phone, location and social links
 

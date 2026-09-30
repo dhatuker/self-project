@@ -49,7 +49,7 @@ The design started from the "Portfolio Landing Page" Claude Design canvas and wa
 
 - **Home sections**, in order: `top` (hero), `about`, `skills`, `projects`, `experience`, `contact`. The nav links (`.nav-link`) point at `#about` through `#experience`. Contact is the `.btn-primary` button in the nav. The projects section shows 3 featured cards and a `.more-link` ("View more projects →") to `/projects`.
 - **Projects page**: `.page-head` header (back link, eyebrow, h1, lead), then `.projects-grid` (2 columns, 1 below 720px) of `.project-card`s, then the contact band and footer. Its nav uses `/#about`-style links back to home, and Projects carries `.active` + `aria-current="page"`. Cards marked `.project-placeholder` (dashed border) are bracketed slots waiting for real projects.
-- **Adding a project**: add a card to `projects.html`. If it should be featured, also add it to the home list, and keep the home list at about 3 cards.
+- **Adding a project**: add a card to `projects.html`, including a `.chips.project-stack` row of `.chip`s for the tech used. If it should be featured, also add it to the home list, and keep the home list at about 3 cards.
 - **Shared markup**: the header nav, contact band and footer are duplicated in both pages. Change them in both places.
 - **Design tokens** are CSS custom properties on `:root`. Colours are `--bg`, `--surface`, `--chip`, `--fg`, `--fg-2`, `--fg-3`, `--muted`, `--line`, `--line-strong`, `--accent`, `--accent-dark`, `--accent-soft`, `--accent-2` (cyan), `--on-accent`, the effect tokens `--glow`, `--glow-strong` and `--grid-line`, and the dark-band tokens `--dark*` (including `--dark-accent` and `--dark-grid`). Layout uses `--max-width` (1080px) and `--pad-x`. Fonts are `--font-sans`, `--font-display` and `--font-mono`. To re-theme, change `--accent`, `--accent-dark` and `--accent-soft` together (and the `--glow*`/`--grid-line` tints to match). The contact band and terminal use a lighter accent, `--dark-accent`, so they stay readable on the dark background.
 - **Reusable classes**: `.wrap` (centred container), `.section` + `.two-col` + `.section-label`, `.card`, `.chip`/`.chips`, `.btn` + `.btn-primary`/`.btn-secondary`/`.btn-sm`, `.project-card`, `.exp-row`, `.page-head`, `.projects-grid`, `.more-link`, `.back-link`.
@@ -63,7 +63,7 @@ The design started from the "Portfolio Landing Page" Claude Design canvas and wa
 
 ## Gotchas / known issues
 
-- The content is **placeholder**: the companies (TechCorp Solutions, etc.), project links (`href="#"`), the email `kiki@example.com`, the `555` phone number and the LinkedIn/GitHub handles. Replace them with real data only when the user provides it. Don't invent personal details.
+- The content is **placeholder**: the companies (TechCorp Solutions, etc.), project links (`href="#"`), the per-project tech-stack chips, the email `kiki@example.com`, the `555` phone number and the LinkedIn/GitHub handles. Replace them with real data only when the user provides it. Don't invent personal details.
 - Smooth scrolling is pure CSS (`scroll-behavior` + `scroll-padding-top: 80px` for the sticky header). If the header's height changes, adjust `scroll-padding-top`.
 - `node_modules/` is committed to the repo even though `.gitignore` lists Node exclusions. The committed copy holds express 5.x, while `package.json` asks for `^4.22.2`. Run `npm install` locally rather than relying on the committed folder, and don't stage `node_modules/` changes unless asked.
 
