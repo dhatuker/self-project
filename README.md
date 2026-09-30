@@ -1,16 +1,17 @@
 # Self-Project
 
-A modern minimalist portfolio website and Express.js server inspired by https://www.irajune.com/
+A warm, editorial portfolio website (home page + projects page) served by Express.js.
 
-## Design Inspiration
+## Design
 
-This portfolio takes design cues from [irajune.com](https://www.irajune.com/) featuring:
-- Clean, minimalist aesthetic with generous whitespace
-- Elegant typography pairing
-- Subtle hover interactions
-- Smooth section transitions
-- Responsive layout
-- Focus on content hierarchy and readability
+The layout comes from the "Portfolio Landing Page" design:
+- Warm cream background with a single rust accent (`#B5562E`)
+- Lora serif headings over a Work Sans body (Google Fonts)
+- Sticky, blurred navigation bar with a Contact button
+- Two-column sections: a small uppercase label on the left, content on the right
+- White cards with hairline borders for skills and projects
+- Dark contact band and footer
+- Responsive, with breakpoints at 900px and 720px
 
 ## Project Structure
 
@@ -21,25 +22,22 @@ self-project/
 ├── package-lock.json  # Dependency lock file
 ├── .gitignore         # Node.js exclusions
 ├── README.md          # Documentation
-�└── public/
-    └── index.html     # Portfolio website
+├── CLAUDE.md          # Notes for Claude Code
+└── public/
+    ├── index.html     # Home page
+    ├── projects.html  # Projects page (/projects)
+    └── styles.css     # Shared styles
 ```
 
 ## Features
 
-### Design Elements
-- **Minimalist Layout**: Clean whitespace, focused typography
-- **Elegant Typography**: System font stack with thoughtful hierarchy
-- **Subtle Interactions**: Hover states, smooth transitions
-- **Section Animations**: Fade-in/slide-up as sections enter viewport
-- **Responsive Design**: Optimized for mobile, tablet, and desktop
-- **Generous Whitespace**: Inspired by irajune.com's spacious layout
-
 ### Sections
-1. **Summary** - Personal introduction with skills tags
-2. **Experience** - Professional timeline with company details
-3. **Projects** - Showcase of work with project cards
-4. **Contact** - Contact information and social links
+1. **Hero** - Name, role and call-to-action buttons
+2. **About** - Personal introduction
+3. **Skills** - Grouped into Frontend, Backend and Tools cards
+4. **Projects** - Three featured project cards with a "View more projects" link to the Projects page
+5. **Experience** - Timeline rows with period, role and company
+6. **Contact** - Email, phone, location and social links
 
 ### Technical Features
 - Express.js server serving static files
@@ -48,6 +46,8 @@ self-project/
 - Active section highlighting
 - IntersectionObserver-based animations
 - Mobile-responsive navigation
+- Works without JavaScript (animations are progressive enhancement)
+- Respects `prefers-reduced-motion`
 - Optimized for performance
 
 ## Installation
@@ -64,26 +64,17 @@ npm install
 
 ## API Endpoints
 
-- `GET /` - Serves the portfolio website
+- `GET /` - Serves the home page
+- `GET /projects` - Serves the projects page
 - `GET /api` - Returns API information
 - `GET /health` - Health check endpoint
-
-## Design Notes
-
-The portfolio follows these principles from irajune.com:
-- **Content First**: Ample whitespace lets content breathe
-- **Typography Hierarchy**: Clear visual weight differences
-- **Subtle Details**: Thin borders, delicate hover effects
-- **Consistent Spacing**: Rhythm and alignment throughout
-- **Minimal Color**: Black and white with occasional gray accents
-- **Focus on Readability**: Optimized line lengths and spacing
 
 ## Customization
 
 To personalize the portfolio:
-1. Edit the content in `public/index.html`
+1. Edit the content in `public/index.html` and `public/projects.html`
 2. Update skills, experience, projects, and contact information
-3. Modify colors in the CSS variables if desired
+3. Modify colors in the CSS variables on `:root` in `public/styles.css` (change `--accent`, `--accent-dark` and `--accent-soft` together)
 4. Add your own projects and experiences
 
 ## Deployment

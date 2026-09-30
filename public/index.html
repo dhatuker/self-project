@@ -3,695 +3,209 @@
 <head>
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <title>Kiki</title>
-  <style>
-    :root {
-      --bg: #ffffff;
-      --fg: #000000;
-      --fg-light: #333333;
-      --muted: #666666;
-      --border: #e0e0e0;
-      --transition: 0.3s ease;
-      --max-width: 1000px;
-      --spacing: 4rem;
-      --animation-duration: 0.6s;
-      --font-sans: -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, 'Helvetica Neue', Arial, sans-serif;
-      --font-serif: 'Georgia', 'Times New Roman', serif;
-    }
-    
-    * {
-      margin: 0;
-      padding: 0;
-      box-sizing: border-box;
-    }
-    
-    html {
-      scroll-behavior: smooth;
-    }
-    
-    body {
-      font-family: var(--font-sans);
-      line-height: 1.8;
-      color: var(--fg);
-      background-color: var(--bg);
-      overflow-x: hidden;
-    }
-    
-    a {
-      color: inherit;
-      text-decoration: none;
-      transition: var(--transition);
-    }
-    
-    a:hover {
-      opacity: 0.8;
-    }
-    
-    /* Header */
-    header {
-      text-align: center;
-      padding: var(--spacing) 0;
-      border-bottom: 1px solid var(--border);
-      position: relative;
-    }
-    
-    .logo {
-      font-size: 2.5rem;
-      font-weight: 300;
-      letter-spacing: -0.5px;
-      margin-bottom: 1.5rem;
-    }
-    
-    nav {
-      display: flex;
-      justify-content: center;
-      gap: 3rem;
-      flex-wrap: wrap;
-    }
-    
-    nav a {
-      font-weight: 400;
-      font-size: 1rem;
-      text-transform: uppercase;
-      letter-spacing: 1px;
-      opacity: 0.7;
-    }
-    
-    nav a:hover {
-      opacity: 1;
-    }
-    
-    /* Main Content */
-    .container {
-      max-width: var(--max-width);
-      margin: 0 auto;
-      padding: 0 var(--spacing);
-    }
-    
-    /* Sections */
-    section {
-      opacity: 0;
-      transform: translateY(40px);
-      transition: opacity var(--animation-duration) ease, transform var(--animation-duration) ease;
-      will-change: opacity, transform;
-      padding: var(--spacing) 0;
-    }
-    
-    section.visible {
-      opacity: 1;
-      transform: translateY(0);
-    }
-    
-    /* Section Headers */
-    .section-header {
-      text-align: center;
-      margin-bottom: var(--spacing);
-    }
-    
-    .section-header h2 {
-      font-size: 2.5rem;
-      font-weight: 300;
-      margin-bottom: 0.5rem;
-      letter-spacing: -0.5px;
-    }
-    
-    .section-header p {
-      color: var(--muted);
-      font-size: 1.1rem;
-      max-width: 600px;
-      margin: 0 auto;
-    }
-    
-    /* Summary Section */
-    #summary {
-      text-align: center;
-      padding: calc(var(--spacing) * 2) 0;
-    }
-    
-    .profile {
-      margin-bottom: 3rem;
-    }
-    
-    .profile-initial {
-      width: 140px;
-      height: 140px;
-      background: var(--fg);
-      color: var(--bg);
-      border-radius: 50%;
-      display: inline-flex;
-      align-items: center;
-      justify-content: center;
-      font-size: 4rem;
-      font-weight: 300;
-      margin-bottom: 2rem;
-    }
-    
-    .summary-text {
-      max-width: 700px;
-      margin: 0 auto;
-      color: var(--fg-light);
-      font-size: 1.2rem;
-      line-height: 1.8;
-    }
-    
-    .skills {
-      margin-top: 3rem;
-      display: flex;
-      flex-wrap: wrap;
-      gap: 1rem;
-      justify-content: center;
-    }
-    
-    .skill {
-      background: var(--border);
-      color: var(--fg);
-      padding: 0.75rem 1.5rem;
-      border-radius: 4px;
-      font-size: 0.9rem;
-      font-weight: 400;
-      text-transform: uppercase;
-      letter-spacing: 0.5px;
-    }
-    
-    /* Experience Section */
-    #experience {
-      background: #fafafa;
-    }
-    
-    .timeline {
-      max-width: 800px;
-      margin: 0 auto;
-    }
-    
-    .experience-item {
-      margin-bottom: 3.5rem;
-      padding-left: 3rem;
-      border-left: 3px solid var(--border);
-      position: relative;
-    }
-    
-    .experience-item:last-child {
-      margin-bottom: 0;
-    }
-    
-    .experience-item::before {
-      content: '';
-      position: absolute;
-      top: 0;
-      left: -1.5px;
-      width: 12px;
-      height: 12px;
-      background: var(--fg);
-      border-radius: 50%;
-    }
-    
-    .job-header {
-      display: flex;
-      justify-content: space-between;
-      flex-wrap: wrap;
-      gap: 1rem;
-      margin-bottom: 1rem;
-    }
-    
-    .job-title {
-      font-size: 1.5rem;
-      font-weight: 500;
-    }
-    
-    .job-period {
-      color: var(--muted);
-      font-size: 1rem;
-    }
-    
-    .company {
-      color: var(--muted);
-      font-size: 1rem;
-      margin-bottom: 1.5rem;
-      display: block;
-      font-style: italic;
-    }
-    
-    .job-description {
-      color: var(--fg-light);
-      line-height: 1.8;
-      max-width: 600px;
-    }
-    
-    /* Projects Section */
-    #projects {
-      text-align: center;
-    }
-    
-    .projects-grid {
-      display: grid;
-      grid-template-columns: repeat(auto-fit, minmax(320px, 1fr));
-      gap: 3rem;
-    }
-    
-    .project-card {
-      background: #fafafa;
-      border: 1px solid var(--border);
-      border-radius: 4px;
-      overflow: hidden;
-      transition: var(--transition);
-    }
-    
-    .project-card:hover {
-      transform: translateY(-4px);
-      box-shadow: 0 8px 24px rgba(0,0,0,0.08);
-    }
-    
-    .project-image {
-      height: 240px;
-      background: #f0f0f0;
-      display: flex;
-      align-items: center;
-      justify-content: center;
-      color: var(--muted);
-      font-style: italic;
-    }
-    
-    .project-content {
-      padding: 2rem;
-    }
-    
-    .project-title {
-      font-size: 1.4rem;
-      font-weight: 500;
-      margin-bottom: 1rem;
-    }
-    
-    .project-desc {
-      color: var(--fg-light);
-      margin-bottom: 1.5rem;
-      line-height: 1.7;
-    }
-    
-    .project-link {
-      display: inline-block;
-      color: var(--fg);
-      font-weight: 500;
-      border-bottom: 1px solid currentColor;
-      padding-bottom: 2px;
-    }
-    
-    .project-link:hover {
-      opacity: 0.8;
-    }
-    
-    /* Contact Section */
-    #contact {
-      text-align: center;
-      padding: calc(var(--spacing) * 2) 0;
-      background: #fafafa;
-    }
-    
-    .contact-info {
-      max-width: 500px;
-      margin: 0 auto;
-    }
-    
-    .contact-item {
-      display: flex;
-      flex-direction: column;
-      align-items: center;
-      gap: 0.75rem;
-      margin-bottom: 2.5rem;
-    }
-    
-    .contact-label {
-      color: var(--muted);
-      font-size: 0.9rem;
-      text-transform: uppercase;
-      letter-spacing: 1px;
-    }
-    
-    .contact-value {
-      font-size: 1.2rem;
-      color: var(--fg);
-      word-break: break-all;
-    }
-    
-    .contact-value a {
-      color: var(--fg);
-    }
-    
-    .contact-value a:hover {
-      opacity: 0.8;
-    }
-    
-    /* Footer */
-    footer {
-      text-align: center;
-      padding: var(--spacing) 0;
-      border-top: 1px solid var(--border);
-      color: var(--muted);
-      font-size: 0.9rem;
-    }
-    
-    /* Responsive */
-    @media (max-width: 768px) {
-      :root {
-        --spacing: 2.5rem;
-      }
-      
-      header {
-        padding: var(--spacing) 0;
-      }
-      
-      nav {
-        gap: 2rem;
-      }
-      
-      .logo {
-        font-size: 2rem;
-      }
-      
-      .section-header h2 {
-        font-size: 2rem;
-      }
-      
-      .profile-initial {
-        width: 120px;
-        height: 120px;
-        font-size: 3.5rem;
-      }
-      
-      .summary-text {
-        font-size: 1.1rem;
-      }
-      
-      .skills {
-        gap: 0.75rem;
-      }
-      
-      .skill {
-        padding: 0.5rem 1rem;
-        font-size: 0.85rem;
-      }
-      
-      .experience-item {
-        padding-left: 2rem;
-      }
-      
-      .experience-item::before {
-        width: 8px;
-        height: 8px;
-        left: -1px;
-      }
-      
-      .projects-grid {
-        grid-template-columns: 1fr;
-        gap: 2rem;
-      }
-      
-      .project-image {
-        height: 200px;
-      }
-    }
-    
-    @media (max-width: 480px) {
-      :root {
-        --spacing: 2rem;
-      }
-      
-      nav {
-        flex-direction: column;
-        gap: 1.5rem;
-      }
-      
-      .logo {
-        font-size: 1.8rem;
-      }
-      
-      .section-header h2 {
-        font-size: 1.8rem;
-      }
-      
-      .profile-initial {
-        width: 100px;
-        height: 100px;
-        font-size: 3rem;
-      }
-      
-      .job-header {
-        flex-direction: column;
-        align-items: flex-start;
-        gap: 0.5rem;
-      }
-      
-      .contact-value {
-        font-size: 1.1rem;
-      }
-    }
-  </style>
+  <title>Kiki — Full-Stack Developer</title>
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Lora:wght@500;600&family=Work+Sans:wght@400;500;600&display=swap" rel="stylesheet">
+  <link rel="stylesheet" href="/styles.css">
+  <script>document.documentElement.classList.add('js');</script>
 </head>
 <body>
   <header>
-    <div class="container">
-      <div class="logo">Kiki</div>
-      <nav>
-        <a href="#summary">Summary</a>
-        <a href="#experience">Experience</a>
-        <a href="#projects">Projects</a>
-        <a href="#contact">Contact</a>
-      </nav>
-    </div>
+    <nav class="wrap" aria-label="Main">
+      <a href="#top" class="brand">Kiki</a>
+      <div class="nav-links">
+        <a href="#about" class="nav-link">About</a>
+        <a href="#skills" class="nav-link">Skills</a>
+        <a href="#projects" class="nav-link">Projects</a>
+        <a href="#experience" class="nav-link">Experience</a>
+        <a href="#contact" class="btn btn-sm btn-primary">Contact</a>
+      </div>
+    </nav>
   </header>
 
-  <section id="summary">
-    <div class="container">
-      <div class="profile">
-        <div class="profile-initial">K</div>
+  <main>
+    <!-- Hero -->
+    <section id="top" class="hero wrap">
+      <div class="hero-inner">
+        <span class="eyebrow">Full-Stack Developer</span>
+        <h1>Kiki</h1>
+        <p class="hero-lead">Building clean, efficient web applications and thoughtful user experiences through well-crafted code.</p>
+        <div class="hero-actions">
+          <a href="#projects" class="btn btn-primary">View projects</a>
+          <a href="#contact" class="btn btn-secondary">Get in touch</a>
+        </div>
       </div>
-      <div class="section-header">
-        <h2>Summary</h2>
-        <p class="summary-text">
-          I'm a full-stack developer focused on building clean, efficient web applications. 
-          My work centers around creating thoughtful user experiences through well-crafted code.
-        </p>
-      </div>
-      <div class="skills">
-        <span class="skill">JavaScript</span>
-        <span class="skill">Node.js</span>
-        <span class="skill">React</span>
-        <span class="skill">Express.js</span>
-        <span class="skill">MongoDB</span>
-        <span class="skill">HTML/CSS</span>
-        <span class="skill">Python</span>
-        <span class="skill">Git</span>
-      </div>
-    </div>
-  </section>
+    </section>
 
-  <section id="experience">
-    <div class="container">
-      <div class="section-header">
-        <h2>Experience</h2>
-        <p>Professional journey in full-stack development</p>
-      </div>
-      <div class="timeline">
-        <div class="experience-item">
-          <div class="job-header">
-            <div class="job-title">Senior Full-Stack Developer</div>
-            <div class="job-period">2021 - Present</div>
-          </div>
-          <div class="company">TechCorp Solutions</div>
-          <p class="job-description">
-            Leading development of scalable web applications using modern JavaScript 
-            architectures. Mentoring team members and driving technical excellence 
-            across multiple product lines.
-          </p>
-        </div>
-        
-        <div class="experience-item">
-          <div class="job-header">
-            <div class="job-title">Full-Stack Developer</div>
-            <div class="job-period">2019 - 2020</div>
-          </div>
-          <div class="company">InnovateTech Studio</div>
-          <p class="job-description">
-            Built responsive web applications and RESTful APIs for clients across 
-            various industries. Focused on performance optimization and clean code 
-            practices.
-          </p>
-        </div>
-        
-        <div class="experience-item">
-          <div class="job-header">
-            <div class="job-title">Junior Developer</div>
-            <div class="job-period">2018 - 2019</div>
-          </div>
-          <div class="company">StartUp Ventures</div>
-          <p class="job-description">
-            Contributed to frontend development and learned full-stack principles 
-            through hands-on project work and code reviews.
-          </p>
+    <!-- About -->
+    <section id="about" class="section wrap reveal">
+      <div class="two-col">
+        <h2 class="section-label">About</h2>
+        <div class="prose">
+          <p>I'm a full-stack developer focused on building clean, efficient web applications. My work centers around creating thoughtful user experiences through well-crafted code.</p>
         </div>
       </div>
-    </div>
-  </section>
+    </section>
 
-  <section id="projects">
-    <div class="container">
-      <div class="section-header">
-        <h2>Projects</h2>
-        <p>Selected works showcasing full-stack capabilities</p>
-      </div>
-      <div class="projects-grid">
-        <div class="project-card">
-          <div class="project-image">
-            E-Commerce Platform
+    <!-- Skills -->
+    <section id="skills" class="section wrap reveal">
+      <div class="two-col">
+        <h2 class="section-label">Skills</h2>
+        <div class="skills-grid">
+          <div class="card skill-card">
+            <h3>Frontend</h3>
+            <div class="chips">
+              <span class="chip">JavaScript</span>
+              <span class="chip">React</span>
+              <span class="chip">HTML/CSS</span>
+            </div>
           </div>
-          <div class="project-content">
-            <h3 class="project-title">E-Commerce Platform</h3>
-            <p class="project-desc">
-              A complete online marketplace featuring user authentication, 
-              product catalog, shopping cart, and secure payment processing.
-            </p>
-            <a href="#" class="project-link">View Project →</a>
+          <div class="card skill-card">
+            <h3>Backend</h3>
+            <div class="chips">
+              <span class="chip">Node.js</span>
+              <span class="chip">Express.js</span>
+              <span class="chip">MongoDB</span>
+              <span class="chip">Python</span>
+            </div>
           </div>
-        </div>
-        
-        <div class="project-card">
-          <div class="project-image">
-            Analytics Dashboard
-          </div>
-          <div class="project-content">
-            <h3 class="project-title">Analytics Dashboard</h3>
-            <p class="project-desc">
-              Real-time data visualization tool for business intelligence with 
-              interactive charts, customizable reports, and role-based access.
-            </p>
-            <a href="#" class="project-link">View Project →</a>
-          </div>
-        </div>
-        
-        <div class="project-card">
-          <div class="project-image">
-            Task Management App
-          </div>
-          <div class="project-content">
-            <h3 class="project-title">Task Management App</h3>
-            <p class="project-desc">
-              Cross-platform task management solution with drag-and-drop 
-              interfaces, real-time collaboration, and mobile offline support.
-            </p>
-            <a href="#" class="project-link">View Project →</a>
-          </div>
-        </div>
-        
-        <div class="project-card">
-          <div class="project-image">
-            Portfolio CMS
-          </div>
-          <div class="project-content">
-            <h3 class="project-title">Portfolio CMS</h3>
-            <p class="project-desc">
-              Headless content management system specifically designed for 
-              showcasing creative work with built-in SEO and analytics.
-            </p>
-            <a href="#" class="project-link">View Project →</a>
+          <div class="card skill-card">
+            <h3>Tools</h3>
+            <div class="chips">
+              <span class="chip">Git</span>
+            </div>
           </div>
         </div>
       </div>
-    </div>
-  </section>
+    </section>
 
-  <section id="contact">
-    <div class="container">
-      <div class="section-header">
-        <h2>Contact</h2>
-        <p>Let's create something great together</p>
-      </div>
-      <div class="contact-info">
-        <div class="contact-item">
-          <div class="contact-label">Email</div>
-          <div class="contact-value">
-            <a href="mailto:kiki@example.com">kiki@example.com</a>
-          </div>
-        </div>
-        
-        <div class="contact-item">
-          <div class="contact-label">Phone</div>
-          <div class="contact-value">+1 (555) 123-4567</div>
-        </div>
-        
-        <div class="contact-item">
-          <div class="contact-label">Location</div>
-          <div class="contact-value">Remote / Global</div>
-        </div>
-        
-        <div class="contact-item">
-          <div class="contact-label">LinkedIn</div>
-          <div class="contact-value">
-            <a href="https://linkedin.com/in/kikidev" target="_blank">
-              linkedin.com/in/kikidev
-            </a>
-          </div>
-        </div>
-        
-        <div class="contact-item">
-          <div class="contact-label">GitHub</div>
-          <div class="contact-value">
-            <a href="https://github.com/kikidev" target="_blank">
-              github.com/kikidev
-            </a>
+    <!-- Projects -->
+    <section id="projects" class="section wrap reveal">
+      <div class="two-col">
+        <h2 class="section-label">Projects</h2>
+        <div class="project-list">
+          <a href="#" class="card project-card">
+            <div class="project-head">
+              <h3>E-Commerce Platform</h3>
+              <span class="project-more">View project →</span>
+            </div>
+            <p>A complete online marketplace featuring user authentication, product catalog, shopping cart, and secure payment processing.</p>
+          </a>
+
+          <a href="#" class="card project-card">
+            <div class="project-head">
+              <h3>Analytics Dashboard</h3>
+              <span class="project-more">View project →</span>
+            </div>
+            <p>Real-time data visualization tool for business intelligence with interactive charts, customizable reports, and role-based access.</p>
+          </a>
+
+          <a href="#" class="card project-card">
+            <div class="project-head">
+              <h3>Task Management App</h3>
+              <span class="project-more">View project →</span>
+            </div>
+            <p>Cross-platform task management solution with drag-and-drop interfaces, real-time collaboration, and mobile offline support.</p>
+          </a>
+
+          <div class="more-row">
+            <a href="/projects" class="more-link">View more projects →</a>
           </div>
         </div>
       </div>
-    </div>
-  </section>
+    </section>
+
+    <!-- Experience -->
+    <section id="experience" class="section wrap reveal">
+      <div class="two-col">
+        <h2 class="section-label">Experience</h2>
+        <div class="exp-list">
+          <div class="exp-row">
+            <span class="exp-period">2021 — Present</span>
+            <div class="exp-body">
+              <h3>Senior Full-Stack Developer <span class="exp-company">· TechCorp Solutions</span></h3>
+              <p>Leading development of scalable web applications using modern JavaScript architectures. Mentoring team members and driving technical excellence across multiple product lines.</p>
+            </div>
+          </div>
+
+          <div class="exp-row">
+            <span class="exp-period">2019 — 2020</span>
+            <div class="exp-body">
+              <h3>Full-Stack Developer <span class="exp-company">· InnovateTech Studio</span></h3>
+              <p>Built responsive web applications and RESTful APIs for clients across various industries. Focused on performance optimization and clean code practices.</p>
+            </div>
+          </div>
+
+          <div class="exp-row">
+            <span class="exp-period">2018 — 2019</span>
+            <div class="exp-body">
+              <h3>Junior Developer <span class="exp-company">· StartUp Ventures</span></h3>
+              <p>Contributed to frontend development and learned full-stack principles through hands-on project work and code reviews.</p>
+            </div>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <!-- Contact -->
+    <section id="contact" class="contact">
+      <div class="wrap contact-inner">
+        <h2>Let's talk</h2>
+        <p class="contact-lead">Let's create something great together — reach out about freelance work, full-time roles, or just to say hello.</p>
+        <a href="mailto:kiki@example.com" class="contact-email">kiki@example.com</a>
+        <div class="contact-meta">
+          <div><span>Phone</span>+1 (555) 123-4567</div>
+          <div><span>Location</span>Remote / Global</div>
+        </div>
+        <div class="socials">
+          <a href="https://linkedin.com/in/kikidev" target="_blank" rel="noopener noreferrer" aria-label="LinkedIn" class="social-link">
+            <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" aria-hidden="true"><rect x="2" y="9" width="4" height="12"></rect><circle cx="4" cy="4" r="2"></circle><path d="M10 9v12"></path><path d="M10 13a4 4 0 0 1 8 0v8"></path></svg>
+          </a>
+          <a href="https://github.com/kikidev" target="_blank" rel="noopener noreferrer" aria-label="GitHub" class="social-link">
+            <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" aria-hidden="true"><path d="M9 19c-4.3 1.4-4.3-2.5-6-3m12 5v-3.5c0-1 .1-1.4-.5-2 2.8-.3 5.5-1.4 5.5-6a4.6 4.6 0 0 0-1.3-3.2 4.2 4.2 0 0 0-.1-3.2s-1.1-.3-3.5 1.3a12.3 12.3 0 0 0-6.2 0C6.5 2.8 5.4 3.1 5.4 3.1a4.2 4.2 0 0 0-.1 3.2A4.6 4.6 0 0 0 4 9.5c0 4.6 2.7 5.7 5.5 6-.6.6-.6 1.2-.5 2V21"></path></svg>
+          </a>
+        </div>
+      </div>
+    </section>
+  </main>
 
   <footer>
-    <div class="container">
-      © 2024 Kiki. All rights reserved.
+    <div class="wrap footer-inner">
+      <span>© <span id="year">2024</span> Kiki. All rights reserved.</span>
+      <span>Built with care.</span>
     </div>
   </footer>
 
   <script>
-    // Smooth scrolling for navigation links
-    document.querySelectorAll('nav a').forEach(link => {
-      link.addEventListener('click', function(e) {
-        e.preventDefault();
-        const targetId = this.getAttribute('href').slice(1);
-        document.getElementById(targetId).scrollIntoView({
-          behavior: 'smooth'
-        });
-      });
-    });
+    // Footer year
+    document.getElementById('year').textContent = new Date().getFullYear();
 
-    // Active navigation indicator
-    const sections = document.querySelectorAll('section');
-    const navLinks = document.querySelectorAll('nav a');
-
-    const observer = new IntersectionObserver((entries) => {
+    // Highlight the nav link for the section currently in view
+    const navLinks = document.querySelectorAll('.nav-link');
+    const navObserver = new IntersectionObserver((entries) => {
       entries.forEach(entry => {
-        if (entry.isIntersecting) {
-          navLinks.forEach(link => link.classList.remove('active'));
-          document.querySelector(`nav a[href="#${entry.target.id}"]`).classList.add('active');
-        }
+        if (!entry.isIntersecting) return;
+        const link = document.querySelector(`.nav-link[href="#${entry.target.id}"]`);
+        if (!link) return; // sections without a nav link (hero, contact) are ignored
+        navLinks.forEach(l => l.classList.remove('active'));
+        link.classList.add('active');
       });
-    }, {
-      threshold: 0.3
-    });
+    }, { rootMargin: '-40% 0px -55% 0px' });
 
-    sections.forEach(section => observer.observe(section));
+    document.querySelectorAll('main section[id]').forEach(s => navObserver.observe(s));
 
-    // Animation observer for sections
-    const animationObserver = new IntersectionObserver((entries) => {
+    // Fade/slide sections in as they enter the viewport
+    const revealObserver = new IntersectionObserver((entries) => {
       entries.forEach(entry => {
         if (entry.isIntersecting) {
           entry.target.classList.add('visible');
+          revealObserver.unobserve(entry.target);
         }
       });
-    }, {
-      threshold: 0.1
-    });
+    }, { threshold: 0.1 });
 
-    document.querySelectorAll('section').forEach(section => {
-      animationObserver.observe(section);
-    });
+    document.querySelectorAll('.reveal').forEach(s => revealObserver.observe(s));
   </script>
 </body>
 </html>
