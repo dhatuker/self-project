@@ -1,16 +1,18 @@
 # Self-Project
 
-A warm, editorial portfolio website (home page + projects page) served by Express.js.
+A white-and-blue, tech-styled portfolio website (home page + projects page) served by Express.js.
 
 ## Design
 
-The layout comes from the "Portfolio Landing Page" design:
-- Warm cream background with a single rust accent (`#B5562E`)
-- Lora serif headings over a Work Sans body (Google Fonts)
-- Sticky, blurred navigation bar with a Contact button
-- Two-column sections: a small uppercase label on the left, content on the right
-- White cards with hairline borders for skills and projects
-- Dark contact band and footer
+The layout comes from the "Portfolio Landing Page" design, re-themed with a white/blue tech look:
+- White and blue-tinted neutral background with a blue accent (`#1F6FEB`) and a cyan secondary (`#00A8CC`)
+- Faint blueprint grid and soft blue glow behind the page
+- Space Grotesk headings, Work Sans body, JetBrains Mono for labels, chips and code-style details (Google Fonts)
+- Sticky, blurred navigation bar with a `~/Kiki` brand and blinking cursor
+- Terminal-style card in the home hero
+- Two-column sections: a small mono `//` label on the left, content on the right
+- White cards with hairline blue borders and a glowing hover state
+- Dark navy contact band and footer with a grid pattern
 - Responsive, with breakpoints at 900px and 720px
 
 ## Project Structure
